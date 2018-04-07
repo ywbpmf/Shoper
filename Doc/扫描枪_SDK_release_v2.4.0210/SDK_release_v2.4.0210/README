@@ -1,0 +1,88 @@
+Device hardware API:
+
+API Reference folder: API Docs
+
+libs folder: API jar file
+
+samples folder: API demo
+Version log:
+<Android4.3 Android5.1 OS> Release SDK <v2.4.0210>
+
+Requirements:
+
+Changed:
+1.KeyMapManager add implements for remap key event:
+
+
+Dependencies:
+Version log:
+<Android4.3 Android5.1 OS> Release SDK <v2.4.0106>
+
+Requirements:
+
+Changed:
+1.IccManager add implements for at88sc102 card:
+
+
+Dependencies:
+Version log:
+<Android4.3 Android5.1 OS> Release SDK <v2.3.1212>
+
+Requirements:
+
+Changed:
+1.DeviceManager add implements for i9000S Android4.3 ROM version 12/02/2016:
+/**
+ * Return  the currently active docker connected state .  
+ * @return true The device is in Ethernet mode or USB Host mode
+ */
+public boolean getDockerState() {
+}
+
+Dependencies:
+
+Version log:
+<Android4.3 Android5.1 OS> Release SDK <v2.3.1205>
+
+Requirements:
+
+Changed:
+1.SEManager add int getPinBlockEx(android.os.Bundle bundle, PedInputListener listener) implements
+ 
+Dependencies:
+
+<Android4.3 OS> Release SDK <v2.3.706>
+
+Requirements:
+
+Changed:
+1.update PiccManager IDCARD implements
+(1)idcard_init()
+(2)idcard_apduTransmit(byte[] sent, int sentlen, byte[] rsp) 
+2.update libs platform_sdk_v2.3.706.jar
+3.remove debug info.
+Dependencies:
+
+<Android4.3 OS> Release SDK <v2.3.602>
+
+Requirements:
+
+Changed:
+1.update BarcodeScan app
+2.update MagManager app
+3.update libs platform_sdk_v2.3.602.jar
+Dependencies:
+
+
+<Android4.3 OS> Release SDK <v2.3.406>
+
+Requirements:
+
+Changed:
+From v2.2.3 to v2.3.406 release changed and added note:
+
+1.API Docs update.
+2.Demo APP add Version info.
+3.add NFCDemo and PinPad app.
+4.ISO4442 rename to SLE4442.
+Dependencies:

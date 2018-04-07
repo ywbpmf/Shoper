@@ -1,0 +1,103 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--单选框-->
+    <CheckBoxPreference
+        android:key="test_mode"
+        android:defaultValue="false"
+        android:title="Test Mode" />
+    <CheckBoxPreference
+        android:key="play_beep"
+        android:defaultValue="true"
+        android:title="Enable Sound" />
+    <CheckBoxPreference
+        android:key="play_vibrate"
+        android:defaultValue="false"
+        android:title="Enable Vibrate" />
+    <CheckBoxPreference
+        android:key="continuous_scan"
+        android:defaultValue="false"
+        android:title="Continuous Scan" />
+    <CheckBoxPreference
+        android:key="flashLight"
+        android:defaultValue="false"
+        android:title="Enable FlashLight" />
+    <CheckBoxPreference
+        android:key="frontFaceCamera"
+        android:defaultValue="true"
+        android:title="Use Front Facing Camera" />
+    <CheckBoxPreference
+        android:key="UseGifPicture"
+        android:defaultValue="false"
+        android:title="Use Gif Picture" 
+        android:summary="it will use a gif picture on screen, no preview" />
+    <CheckBoxPreference
+        android:key="NoPreview"
+        android:defaultValue="true"
+        android:title="NO Preview" 
+        android:summary="it will no preview, just a picture on screen" />
+    <CheckBoxPreference
+        android:key="onlyPreview"
+        android:defaultValue="false"
+        android:title="Only Preview NO Decode" 
+        android:summary="it will just preview, no decode" />
+    <CheckBoxPreference
+        android:key="showResult"
+        android:defaultValue="false"
+        android:title="Show Result" />
+    <CheckBoxPreference
+        android:key="saveBitmapJustOnce"
+        android:defaultValue="false"
+        android:title="save Bitmap JustOnce" 
+        android:summary="kick button to save bitmap" />
+    <CheckBoxPreference
+        android:key="saveBitmapContinuous"
+        android:defaultValue="false"
+        android:title="save Bitmap Continuous" 
+        android:summary="please do not select it,it will save bitmap continuous" />
+    
+    <!--排序选项列表-->
+  <!--  <ListPreference
+        android:key="decodeLibrary"
+        android:title="Decode Library" 
+        android:defaultValue="honeywell" />-->
+    <ListPreference
+        android:key="frontCamera_preview_size"
+        android:title="FrontCamera Preview Size" 
+        android:defaultValue="640x480" />
+    <ListPreference
+        android:key="BackCamera_preview_size"
+        android:title="BackCamera Preview Size" 
+        android:defaultValue="1280x720" />
+    <ListPreference
+        android:key="preview_cut_size"
+        android:title="Preview Cut Size" 
+        android:defaultValue="640x480" />
+    <ListPreference
+        android:key="focusMode"
+        android:title="Focus Mode" 
+        android:defaultValue="fixed" />
+    <ListPreference
+        android:key="exposureCompensation"
+        android:title="Exposure Compensation" 
+        android:defaultValue="0" />
+    <ListPreference
+        android:key="gain"
+        android:title="Gain" />
+    <ListPreference
+        android:key="zoom"
+        android:title="Zoom" />
+    <ListPreference
+        android:key="colorEffect"
+        android:title="Color Effect" />
+    <ListPreference
+        android:key="sceneMode"
+        android:title="Scene Mode" />
+    <ListPreference
+        android:key="whiteBalance"
+        android:title="White Balance" />
+    <ListPreference
+        android:key="antiBanding"
+        android:title="anti-Banding" />
+    
+
+</PreferenceScreen>

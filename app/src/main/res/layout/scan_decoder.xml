@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent" 
+    android:layout_width="fill_parent" 
+    android:baselineAligned="true" 
+    android:orientation="vertical"    
+    android:weightSum="1">
+  
+   <LinearLayout 
+       android:id="@+id/testActivity_Layout0" 
+       android:layout_width="fill_parent"  
+       android:layout_height="wrap_content"
+       android:weightSum="1" >
+        <Button 
+            android:layout_height="wrap_content" 
+            android:id="@+id/button_openFrontCamera" 
+            android:text="open_frontCamera"
+            android:layout_width="0dp" 
+            android:layout_weight="0.5"
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </Button>
+        
+        <Button 
+            android:layout_height="wrap_content" 
+            android:id="@+id/button_openBackCamera" 
+            android:text="open_backCamera"
+            android:layout_width="0dp" 
+            android:layout_weight="0.5"
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </Button>
+   </LinearLayout> 
+   
+   <LinearLayout 
+       android:id="@+id/testActivity_Layout1" 
+       android:layout_width="fill_parent"  
+       android:layout_height="wrap_content"
+       android:weightSum="1" >
+        <Button 
+            android:layout_height="wrap_content" 
+            android:id="@+id/button_startScan" 
+            android:text="start_scan"
+            android:layout_width="fill_parent"  
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </Button>
+   </LinearLayout> 
+   
+   <LinearLayout 
+       android:id="@+id/testActivity_Layout2" 
+       android:layout_width="fill_parent"  
+       android:layout_height="wrap_content"
+       android:weightSum="1" >
+        <Button 
+            android:layout_height="wrap_content" 
+            android:id="@+id/button_closeCamera" 
+            android:text="close_camera"
+            android:layout_width="fill_parent"  
+            android:textAppearance="?android:attr/textAppearanceSmall">
+        </Button>
+   </LinearLayout> 
+   
+ 
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="message"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:focusable="false"
+            android:enabled="false"
+            android:inputType="textMultiLine" />
+        
+    </LinearLayout>
+   
+</LinearLayout>

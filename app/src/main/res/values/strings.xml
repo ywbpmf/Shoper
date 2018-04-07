@@ -1,0 +1,112 @@
+<resources>
+    <string name="app_name">SHOPER</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="account">帐号</string>
+    <string name="password">密码</string>
+    <string name="phone_num">手机号</string>
+    <string name="login">登录</string>
+    <string name="go_login">去登录</string>
+    <string name="register_user">注册用户</string>
+    <string name="forget_pass">忘记密码</string>
+    <string name="use_issue">使用说明</string>
+    <string name="phone_error">手机号有错</string>
+    <string name="pass_error">密码错误</string>
+    <string name="login_failed">登录异常</string>
+    <string name="input_name_pass">请输入账号和密码</string>
+    <string name="copy_right">©copyright 2017-2027</string>
+
+    <string name="billing">开单</string>
+    <string name="sales_ticket">销售单</string>
+    <string name="sales_return">退货</string>
+    <string name="analyze">分析</string>
+    <string name="send_out">发货</string>
+    <string name="shop_manager">商品管理</string>
+    <string name="remember_me">记住密码</string>
+
+
+    <string name="main_store">SHOPER</string>
+    <string name="operator">店\t员：</string>
+    <string name="their_sub_store">分\t店：</string>
+
+    <string name="person">个人</string>
+    <string name="system">系统</string>
+    <string name="device">设备</string>
+
+    <string name="update_account">修改资料</string>
+    <string name="update_pass">修改密码</string>
+    <string name="update_phone">更换手机</string>
+
+    <string name="about_me">关于我们</string>
+    <string name="check_update">检测更新</string>
+    <string name="exit_logout">退出登录</string>
+
+
+    <string name="orders_no">订单编号</string>
+    <string name="orders_time">下单时间</string>
+    
+    <string name="go_pay">去支付</string>
+    <string name="go_send">去发货</string>
+
+    <string name="add_goods">添加商品</string>
+    <string name="goods_name">商品名称</string>
+    <string name="goods_type">商品类型</string>
+    <string name="bar_code">条形码</string>
+    <string name="unit">单位</string>
+    <string name="stock_price">进货价</string>
+    <string name="wholesale_price">批发价</string>
+    <string name="retail_price">零售价</string>
+    <string name="init_cost">期初成本</string>
+    <string name="stock">库存</string>
+    <string name="safe_stock">安全库存</string>
+    <string name="desc">备注</string>
+    <string name="desc_explain">备注：(32字)</string>
+    <string name="p_choice">请选择</string>
+    <string name="price_zero">0.00</string>
+    <string name="input_goods_name">请点击此处输入商品名称</string>
+    <string name="add_img">添加图片</string>
+    <string name="p_desc">请简要说明商品信息</string>
+
+    <string name="print_bills">打印小票</string>
+    <string name="date">日期</string>
+    <string name="customer">客户</string>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+
+    <string name="input_barcode">选择开单码</string>
+    <string name="money">金额</string>
+    <string name="money_">交易金额：%s</string>
+    <string name="submit">提交</string>
+    <string name="next">保存, 下一个</string>
+
+
+    <string name="saleno_">单号: %s</string>
+    <string name="pay_no">未支付</string>
+    <string name="pay_yes">已支付</string>
+
+    <string name="goods_return">商品退货</string>
+    <string name="sales_no_">销售单号：</string>
+    <string name="goods_money_">商品金额：</string>
+    <string name="return_cause_">退货原因：</string>
+    <string name="commit_orders_ing">正在提交订单...</string>
+    <string name="hint">提示</string>
+    <string name="okey">好的</string>
+    <string name="commit_orders_err">订单提交失败</string>
+    <string name="commit_orders_success">订单提交成功</string>
+    <string name="input_money">请输入金额</string>
+    <string name="input_money_err">输入金额有误</string>
+
+    <string name="ship_addr">收货地址：</string>
+    <string name="rec_men">收  件  人：</string>
+    <string name="con_phone">联系电话：</string>
+    <string name="pay_way">付款方式：</string>
+    <string name="online_pay">线上支付</string>
+    <string name="cash_on_del">货到付款</string>
+
+
+
+
+</resources>

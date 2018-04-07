@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="MAIN_TITLES">
+        <item>@string/billing</item>
+        <item>@string/sales_ticket</item>
+        <item>@string/sales_return</item>
+        <item>@string/analyze</item>
+        <item>@string/send_out</item>
+        <item>@string/shop_manager</item>
+    </string-array>
+
+    <!--商品类型-->
+    <string-array name="GOODS_TYPES">
+        <item>平板电脑</item>
+        <item>手机配件</item>
+        <item>智能手表</item>
+        <item>智能手表</item>
+        <item>其它</item>
+    </string-array>
+
+    <!--商品单位-->
+    <string-array name="GOODS_UNITS">
+        <item>本</item>
+        <item>把</item>
+        <item>部</item>
+        <item>袋</item>
+        <item>打</item>
+        <item>对</item>
+        <item>个</item>
+        <item>根</item>
+        <item>盒</item>
+        <item>件</item>
+        <item>斤</item>
+        <item>块</item>
+        <item>瓶</item>
+        <item>双</item>
+        <item>套</item>
+        <item>台</item>
+        <item>条</item>
+        <item>支</item>
+        <item>只</item>
+    </string-array>
+</resources>

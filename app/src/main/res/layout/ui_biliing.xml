@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_72"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/input_barcode"
+                    />
+
+                <FrameLayout
+                    android:layout_width="200dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_marginTop="@dimen/dp_10">
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_40"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/money"
+                    />
+
+                <EditText
+                    android:id="@+id/et_money"
+                    android:layout_width="200dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/input_bg"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_6"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:inputType="numberDecimal"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_46"
+                android:orientation="vertical"
+                android:gravity="center">
+
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next"
+                    android:background="@drawable/btn_bg"
+                    android:paddingLeft="@dimen/dp_24"
+                    android:paddingRight="@dimen/dp_24"
+                    />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="78dp"
+                    android:layout_height="78dp"
+                    android:text="@string/submit"
+                    android:layout_marginTop="@dimen/dp_46"
+                    android:background="@drawable/btn_oval_bg"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!--<View style="@style/Line_Style" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="@dimen/padding"-->
+        <!--android:visibility="gone"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<CheckBox-->
+            <!--style="@style/Widget.AppCompat.CompoundButton.CheckBox"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/print_bills"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:checked="true"-->
+            <!--/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/billing"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--/>-->
+
+    <!--</RelativeLayout>-->
+
+</LinearLayout>

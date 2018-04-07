@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/capture_containter"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<SurfaceView
+		android:id="@+id/capture_preview"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+
+	<com.landicorp.android.scanview.ScanLayout
+		android:id="@+id/scanLayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	</com.landicorp.android.scanview.ScanLayout>
+
+	<com.landicorp.android.scanview.GifView
+		android:id="@+id/gif"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="center_horizontal"
+		android:enabled="false" />
+
+	<LinearLayout android:id="@+id/result_view"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:visibility="gone"
+		android:baselineAligned="false">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/result_text"
+				android:textColor="@android:color/holo_red_light"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"/>
+		</RelativeLayout>
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/button_view"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		android:layout_alignParentBottom="true"
+		android:weightSum="1" >
+		<Button
+			android:layout_height="wrap_content"
+			android:id="@+id/btnReScan"
+			android:text="reScan"
+			android:layout_width="0dp"
+			android:layout_weight="0.5"
+			android:textAppearance="?android:attr/textAppearanceSmall">
+		</Button>
+		<Button
+			android:layout_height="wrap_content"
+			android:id="@+id/btnSaveIMG"
+			android:text="SaveIMG"
+			android:layout_width="0dp"
+			android:layout_weight="0.5"
+			android:textAppearance="?android:attr/textAppearanceSmall">
+		</Button>
+	</LinearLayout>
+
+</RelativeLayout>

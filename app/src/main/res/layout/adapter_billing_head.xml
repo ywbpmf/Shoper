@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_bar_height"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textColor="@color/text_blank"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_date"
+            android:drawablePadding="@dimen/padding"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_arrow_r"
+            android:drawablePadding="@dimen/padding"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+    <View style="@style/Line_Style" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_bar_height"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customer"
+            android:textColor="@color/text_blank"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_customer"
+            android:drawablePadding="@dimen/padding"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_arrow_r"
+            android:drawablePadding="@dimen/padding"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+    <View style="@style/Line_Style" />
+
+</LinearLayout>

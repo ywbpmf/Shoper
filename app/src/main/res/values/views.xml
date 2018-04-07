@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayout_Hint">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Line_Style">
+        <item name="android:background">@color/line_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+    </style>
+
+
+</resources>
