@@ -4,8 +4,8 @@ package com.gane.shoper.ui.billing
  * 开单数据的实体
  */
 data class Billing(
-        val barcode: String,
-        val amount: Float
+        val barcode: String = "",
+        val amount: Float = 0.00f
 )
 
 data class BillingAll(

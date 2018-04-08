@@ -81,9 +81,11 @@
     <string name="money_">交易金额：%s</string>
     <string name="submit">提交</string>
     <string name="next">保存, 下一个</string>
+    <string name="query_list">查看开单列表</string>
 
 
     <string name="saleno_">单号: %s</string>
+    <string name="money_f">￥:%s</string>
     <string name="pay_no">未支付</string>
     <string name="pay_yes">已支付</string>
 
@@ -105,8 +107,13 @@
     <string name="pay_way">付款方式：</string>
     <string name="online_pay">线上支付</string>
     <string name="cash_on_del">货到付款</string>
+    <string name="not_data">暂无数据</string>
+    <string name="save_success">保存成功</string>
+    <string name="orders_pay">订单支付</string>
 
-
+    <string name="weixin">微信</string>
+    <string name="zhifubao">支付宝</string>
+    <string name="shop_pay">商场收银</string>
 
 
 </resources>

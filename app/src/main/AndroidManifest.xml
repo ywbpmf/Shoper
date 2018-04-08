@@ -44,6 +44,10 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ui.sales_return.SalesReturnActivity" android:label="@string/goods_return" android:screenOrientation="portrait"/>
         <activity android:name=".ui.sales_send.SalesSendActivity" android:label="@string/send_out" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.billing.PayChannelActivity" android:label="@string/orders_pay" android:screenOrientation="portrait" />
+
+
+
         <activity android:name=".ui.LandiActivity" />
 
 
