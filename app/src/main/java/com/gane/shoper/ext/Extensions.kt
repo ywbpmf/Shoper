@@ -23,6 +23,11 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
 }
 
+fun Activity.hideKeyboard(view: View) {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
 inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener (object : ViewTreeObserver.OnGlobalLayoutListener{
         override fun onGlobalLayout() {

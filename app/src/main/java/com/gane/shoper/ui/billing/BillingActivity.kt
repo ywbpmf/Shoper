@@ -1,6 +1,7 @@
 package com.gane.shoper.ui.billing
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.gane.shoper.R
 import com.gane.shoper.app.SuperActivity
 import com.gane.shoper.entity.InstBarcodesBean
+import com.gane.shoper.entity.OrderCommitBean
 import com.gane.shoper.ext.hideKeyboard
 import com.gane.shoper.ui.sales.BillingContract
 import com.gane.shoper.ui.sales.BillingPresenter
@@ -113,6 +115,16 @@ class BillingActivity : SuperActivity(), BillingContract.View {
         btn_submit.setOnClickListener {
             if(billingList.isNotEmpty()) {
                 kCommiting?.show()
+                for (i in 0 until billingList.size) {
+                    val code = billingList[i].barcode
+                    if (billingMap.containsKey(code)) {
+                        val oldMoney = billingMap[code]!!
+                        billingMap[code] = oldMoney + billingList[i].amount
+                    } else {
+                        billingMap[code] = billingList[i].amount
+                    }
+                }
+
                 var list = ArrayList<Billing>()
                 for ((k, v) in billingMap) {
                     list.add(Billing(k, v))
@@ -164,12 +176,6 @@ class BillingActivity : SuperActivity(), BillingContract.View {
 
         billingList.add(Billing(code, money))
 
-        if (billingMap.containsKey(code)) {
-            val oldMoney = billingMap[code]!!
-            billingMap.put(code, oldMoney + money)
-        } else {
-            billingMap.put(code, money)
-        }
 
         return true
     }
@@ -207,13 +213,17 @@ class BillingActivity : SuperActivity(), BillingContract.View {
         kLoading?.dismiss()
     }
 
-    override fun commitOrderSuccess() {
+    override fun commitOrderSuccess(data: OrderCommitBean) {
         kCommiting?.dismiss()
-        AlertDialog.Builder(this).setTitle(R.string.hint)
-                .setMessage(R.string.commit_orders_success)
-                .setNegativeButton(R.string.okey) { dialog, which -> finish() }
-                .setOnCancelListener { finish() }
-                .show()
+//        AlertDialog.Builder(this).setTitle(R.string.hint)
+//                .setMessage(R.string.commit_orders_success)
+//                .setNegativeButton(R.string.okey) { dialog, which -> finish() }
+//                .setOnCancelListener { finish() }
+//                .show()
+        startActivity(Intent(this, PayChannelActivity::class.java)
+                .putExtra(PayChannelActivity.KEY_NO, data.saleno)
+                .putExtra(PayChannelActivity.KEY_MONEY, data.owesum))
+        finish()
     }
 
     override fun commitOrderError() {

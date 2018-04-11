@@ -1,6 +1,7 @@
 package com.gane.shoper.ui.sales
 
 import com.gane.shoper.entity.InstBarcodesBean
+import com.gane.shoper.entity.OrderCommitBean
 import com.gane.shoper.mvp.BasePresenter
 import com.gane.shoper.mvp.BaseView
 import com.gane.shoper.ui.billing.Billing
@@ -14,7 +15,7 @@ interface BillingContract {
         fun loadAllBillingSuccess(data: List<InstBarcodesBean>)
         fun loadAllBillingError()
 
-        fun commitOrderSuccess()
+        fun commitOrderSuccess(data: OrderCommitBean)
         fun commitOrderError()
 
     }

@@ -68,9 +68,9 @@ class BillingPresenter(private val view: BillingContract.View) : BillingContract
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( {
-                    if (it.code == HttpCode.OK) {
+                    if (it.code == HttpCode.OK && it.data != null) {
                         // 保存数据到application中
-                        view.commitOrderSuccess()
+                        view.commitOrderSuccess(it.data!!)
                     } else {
                         view.commitOrderError()
                     }

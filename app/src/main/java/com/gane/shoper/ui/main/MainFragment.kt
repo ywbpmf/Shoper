@@ -26,7 +26,7 @@ class MainFragment : SuperFragment(), BaseQuickAdapter.OnItemClickListener {
 
     private val pages = arrayOf(BillingActivity::class.java, SalesOrdersActivity::class.java,
             SalesReturnActivity::class.java, AnalyzeActivity::class.java,
-            SalesSendActivity::class.java, PayChannelActivity::class.java)
+            SalesSendActivity::class.java, GoodsActivity::class.java)
 
     override fun layoutId() = R.layout.fm_main
 

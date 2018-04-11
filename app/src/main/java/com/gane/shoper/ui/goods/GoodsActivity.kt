@@ -27,6 +27,8 @@ class GoodsActivity : SuperActivity(), GoodsContract.View {
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.addItemDecoration(HorizontalDividerItemDecoration.Builder(this)
                 .colorResId(R.color.line_color).sizeResId(R.dimen.line_height).build())
+        adapter.bindToRecyclerView(recycler_view)
+        adapter.setEmptyView(R.layout.view_billing_empty)
     }
 
 
