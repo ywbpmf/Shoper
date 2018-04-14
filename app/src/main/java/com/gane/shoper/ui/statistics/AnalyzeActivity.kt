@@ -18,6 +18,8 @@ class AnalyzeActivity : SuperActivity() {
     override fun layoutId() = R.layout.ui_analyze
 
     override fun initView() {
+
+
         drawLineChart()
     }
 
@@ -85,6 +87,7 @@ class AnalyzeActivity : SuperActivity() {
 
         return LineData(dataSet)
     }
+
 
 
 }
