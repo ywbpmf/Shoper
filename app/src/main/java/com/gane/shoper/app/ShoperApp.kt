@@ -2,6 +2,7 @@ package com.gane.shoper.app
 
 import android.app.Application
 import com.gane.shoper.entity.AppEntity
+import com.gane.shoper.entity.UserLoginBean
 
 /**
  *
@@ -13,6 +14,9 @@ class ShoperApp : Application() {
         lateinit var self: ShoperApp
 
         var appEntity: AppEntity = AppEntity()
+
+
+       var userLoginBean = UserLoginBean()
 
     }
 

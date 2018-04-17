@@ -21,51 +21,24 @@
         android:layout_marginLeft="@dimen/dp_10">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高脚气靴"
             android:textColor="@color/text_blank"
             android:textSize="@dimen/text_base"
             android:layout_alignParentTop="true"
             />
 
         <TextView
+            android:id="@+id/tv_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_hint"
             android:textSize="@dimen/text_hint"
-            android:text="批发: ¥2111.11"
             android:layout_centerVertical="true"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_hint"
-            android:textSize="@dimen/text_hint"
-            android:text="进货: ¥1111.11"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_hint"
-            android:textSize="@dimen/text_hint"
-            android:text="零售: ¥3111.11"
-            android:layout_alignParentBottom="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_red"
-            android:textSize="@dimen/text_hint"
-            android:text="库存: 111"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            />
 
     </RelativeLayout>
 

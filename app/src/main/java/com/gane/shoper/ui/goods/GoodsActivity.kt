@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.gane.shoper.R
 import com.gane.shoper.app.SuperActivity
+import com.gane.shoper.entity.InstBarcodesBean
 import com.gane.shoper.ui.GoodsActionActivity
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import kotlinx.android.synthetic.main.ui_goods.*
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.ui_goods.*
  */
 class GoodsActivity : SuperActivity(), GoodsContract.View {
 
-    override var presenter: GoodsContract.Presenter = GoodsPresenter()
+    override var presenter: GoodsContract.Presenter = GoodsPresenter(this)
 
     private lateinit var adapter: GoodsAdapter
 
@@ -29,11 +30,13 @@ class GoodsActivity : SuperActivity(), GoodsContract.View {
                 .colorResId(R.color.line_color).sizeResId(R.dimen.line_height).build())
         adapter.bindToRecyclerView(recycler_view)
         adapter.setEmptyView(R.layout.view_billing_empty)
+
+        presenter.reqGoodsList()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_goods, menu)
+//        menuInflater.inflate(R.menu.menu_goods, menu)
         return true
     }
 
@@ -45,6 +48,13 @@ class GoodsActivity : SuperActivity(), GoodsContract.View {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun loadGoodsListError() {
+
+    }
+
+    override fun loadGoodsListSuccess(data: List<InstBarcodesBean>) {
+        adapter.setNewData(data)
+    }
 
 
 }

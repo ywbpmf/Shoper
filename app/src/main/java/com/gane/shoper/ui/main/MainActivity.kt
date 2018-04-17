@@ -13,9 +13,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.gane.shoper.R
+import com.gane.shoper.app.ShoperApp
 import com.gane.shoper.ui.LandiActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,6 +33,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        val headerView = nav_view.getHeaderView(0)
+
+        headerView.tv_name.text = ShoperApp.userLoginBean?.user?.clerkname
+        if (ShoperApp.userLoginBean.insts != null && ShoperApp.userLoginBean.insts!!.isNotEmpty())
+            headerView.tv_ins.text = ShoperApp.userLoginBean.insts!![0].inst?.trademarkname
     }
 
     override fun onBackPressed() {

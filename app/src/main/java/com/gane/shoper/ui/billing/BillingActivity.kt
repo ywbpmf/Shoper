@@ -203,7 +203,7 @@ class BillingActivity : SuperActivity(), BillingContract.View {
     override fun loadAllBillingSuccess(data: List<InstBarcodesBean>) {
         allBilling = data
         for (i in 0 until data.size) {
-            spinnerAdapter.add(data[i].barcode)
+            spinnerAdapter.add(data[i].goodsname)
         }
 
         kLoading?.dismiss()

@@ -72,9 +72,12 @@ class LoginActivity: AppCompatActivity(), View.OnClickListener, LoginContract.Vi
     }
 
     override fun loginSuccess(userLoginBean: UserLoginBean) {
+        ShoperApp.userLoginBean = userLoginBean
+
         token(userLoginBean.token)
         name(et_phone.text.toString())
         pass(et_pass.text.toString())
+
         kProgress?.dismiss()
         startActivity(Intent(this, MainActivity::class.java))
         finish()

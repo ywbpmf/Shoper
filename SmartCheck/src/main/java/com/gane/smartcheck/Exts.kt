@@ -1,19 +1,14 @@
 package com.gane.smartcheck
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 
-/**
- *
- */
-fun AppCompatActivity.initToolbar(toolbar: Toolbar) {
-   initToolbar(toolbar, false)
-}
 
-fun AppCompatActivity.initToolbar(toolbar: Toolbar, back: Boolean) {
-    setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayShowTitleEnabled(false)
-    supportActionBar?.setDisplayHomeAsUpEnabled(back)
-    supportActionBar?.setDisplayShowHomeEnabled(false)
+fun Context.name() = getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE)
+        .getString("LOGIN_NAME", null)
+
+fun Context.name(name: String?) {
+    getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE).edit().putString("LOGIN_NAME", name).commit()
 }
 

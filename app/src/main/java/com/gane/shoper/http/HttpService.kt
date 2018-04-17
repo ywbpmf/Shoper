@@ -49,7 +49,7 @@ interface HttpService {
      */
     @GET("statistics/query")
     fun getStatistics(@Query("clerkno") clerkno: String, @Query("begindate") begindate: String,
-                      @Query("enddate") enddate: String) : Observable<BaseBean<List<OrderQueryBean>>>
+                      @Query("enddate") enddate: String) : Observable<BaseBean<StatisticsEntity>>
 
 
 }

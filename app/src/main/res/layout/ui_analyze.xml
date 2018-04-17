@@ -9,40 +9,77 @@
     <include layout="@layout/app_toolbar" />
 
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:orientation="vertical"
+        android:layout_margin="@dimen/margin"
+        >
 
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/margin"
-            android:background="@drawable/line_chart_bg"
-            >
+            android:layout_height="wrap_content"
 
-
+            android:background="@drawable/line_chart_bg">
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/line_chart"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 />
+        </FrameLayout>
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin">
+
+
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="03/2018"
+                android:textSize="17sp"
+                android:textColor="#ff00fe"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tv_date"
+                android:src="@drawable/selector_ago" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_date"
+                android:src="@drawable/selector_late" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/list_bg"
+            android:layout_weight="1" >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="match_parent" />
 
-        </LinearLayout>
+        </FrameLayout>
 
+    </LinearLayout>
 
-
-
-    </ScrollView>
 
 </LinearLayout>
