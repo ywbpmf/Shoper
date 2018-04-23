@@ -5,8 +5,9 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.gane.smartcheck.bean.LoginBean
+import com.gane.smartcheck.bean.ProductBean
 
-@Database(entities = arrayOf(LoginBean::class), version = 1)
+@Database(entities = arrayOf(LoginBean::class, ProductBean::class), version = 2)
 abstract class RoomDb : RoomDatabase() {
 
     companion object {
@@ -22,6 +23,7 @@ abstract class RoomDb : RoomDatabase() {
     }
 
     abstract fun loginDao(): LoginDao
+    abstract fun productDao(): ProductDao
 
 }
 

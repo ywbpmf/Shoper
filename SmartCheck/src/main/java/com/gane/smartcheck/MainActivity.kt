@@ -3,7 +3,6 @@ package com.gane.smartcheck
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.ui_main.*
 
 
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ui_main)
 
-        tv_title.text = title
 
         btn_query.setOnClickListener {
             startActivity(Intent(this, QueryActivity::class.java))

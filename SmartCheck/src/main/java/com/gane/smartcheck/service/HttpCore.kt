@@ -6,7 +6,7 @@ import com.gane.smartcheck.App
 
 object HttpCore {
 
-    val  volleyQueue: RequestQueue by lazy {
+    val volleyQueue: RequestQueue by lazy {
         Volley.newRequestQueue(App.instance)
     }
 
@@ -17,7 +17,7 @@ object HttpCore {
     /** 登录 */
     const val LOGIN = URL + "user/login"
 
-    /** 查询商品信息(库存中查找) */
+    /** 查询商品信息(库存中查找) 080001*/
     const val QUERYALL = URL + "product/queryAll?barcode=%s"
 
     /**
@@ -31,6 +31,6 @@ object HttpCore {
     /**
      * 查询商品信息（不包括库存）
      */
-    const val INST = URL + "inst/barcodes?barcode=%s"
+    const val INST = URL + "product/query?barcode=%s"
 
 }

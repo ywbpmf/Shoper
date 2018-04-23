@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,10 +18,9 @@
         >
 
         <TextView
-            android:id="@+id/tv_odd"
+            android:id="@+id/tv_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="单号:2018032700001"
 
             android:layout_alignParentLeft="true"
             />
@@ -50,6 +47,7 @@
         />
 
     <RelativeLayout
+        android:id="@+id/rl_scan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/layout_div_bg"
@@ -57,12 +55,22 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:padding="8dp"
+        android:visibility="gone"
         >
 
         <TextView
+            android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="最终扫描结果："
+            />
+
+        <TextView
+            android:id="@+id/tv_scan_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text1"
+            android:layout_marginLeft="4dp"
             />
 
         <TextView
