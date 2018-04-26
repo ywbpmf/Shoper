@@ -1,10 +1,8 @@
 package com.gane.smartcheck
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.device.ScanManager
 import android.device.scanner.configuration.PropertyID
 import android.os.Bundle
@@ -86,6 +84,10 @@ class CheckActivity : AppCompatActivity() {
                     break
                 }
             }
+        }
+        tv_his.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java)
+                    .putExtra("id", mNo))
         }
 
         loadNowNo()
@@ -191,14 +193,26 @@ class CheckActivity : AppCompatActivity() {
 
         val request = JsonObjectRequest(Request.Method.POST,COMMIT, jsonObj, {
             if (it != null && it.getInt("code") == 200) {
-                var factcheckno = jsonObj.getJSONObject("data").getString("factcheckno")
-                var opdate = jsonObj.getJSONObject("data").getString("opdate")
-                for (i in 0 .. resultList.size) {
+                var factcheckno = it.getJSONObject("data").getString("factcheckno")
+                var opdate = it.getJSONObject("data").getString("opdate")
+                for (i in 0 until resultList.size) {
                     resultList[i].factcheckno = factcheckno
                     resultList[i].opdate = opdate
                     resultList[i].checkno = mNo
                 }
                 RoomDb.getInstance(applicationContext).productDao().insert(resultList)
+                
+                AlertDialog.Builder(this).setTitle("提示")
+                        .setMessage("提交判断数据成功，是否继续")
+                        .setPositiveButton("继续") { _, _ ->
+                            sumList.clear()
+                            allList.clear()
+                            adapter.notifyDataSetChanged()
+                        }
+                        .setNegativeButton("退出", { _, _ ->
+                            finish()
+                        })
+                
             } else {
                 Toast.makeText(this, "盘点商品失败.", Toast.LENGTH_SHORT).show()
             }
