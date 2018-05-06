@@ -7,7 +7,7 @@ import android.content.Context
 import com.gane.smartcheck.bean.LoginBean
 import com.gane.smartcheck.bean.ProductBean
 
-@Database(entities = arrayOf(LoginBean::class, ProductBean::class), version = 2)
+@Database(entities = arrayOf(LoginBean::class, ProductBean::class), version = 3)
 abstract class RoomDb : RoomDatabase() {
 
     companion object {
@@ -16,6 +16,7 @@ abstract class RoomDb : RoomDatabase() {
         fun getInstance(appContext: Context): RoomDb {
             if (roomDb == null) {
                 roomDb = Room.databaseBuilder(appContext, RoomDb::class.java, "smart_check.db")
+                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries().build()
             }
             return roomDb!!
@@ -26,4 +27,7 @@ abstract class RoomDb : RoomDatabase() {
     abstract fun productDao(): ProductDao
 
 }
+
+
+
 

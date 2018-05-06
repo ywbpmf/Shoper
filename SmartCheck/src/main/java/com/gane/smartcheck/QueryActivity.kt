@@ -16,8 +16,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.gane.smartcheck.bean.BaseBean
-import com.gane.smartcheck.bean.LoginBean
 import com.gane.smartcheck.bean.ProductBean
+import com.gane.smartcheck.db.RoomDb
 import com.gane.smartcheck.service.HttpCore.QUERYALL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,11 +35,12 @@ class QueryActivity : AppCompatActivity(), Response.Listener<String>, Response.E
 
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        subTitle()
 
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("查询中...")
-        initScan()
 
+        initScan()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -52,7 +53,9 @@ class QueryActivity : AppCompatActivity(), Response.Listener<String>, Response.E
      */
     fun loadQueryData(barcode: String) {
         progressDialog.show()
-        val request = StringRequest(String.format(QUERYALL, "08000101"), this, this)
+        val shopno = RoomDb.getInstance(applicationContext).loginDao().getLoginData()!!.shopno
+        val request = StringRequest(String.format(QUERYALL, barcode, shopno),
+                this, this)
         Volley.newRequestQueue(this).add(request)
     }
 
@@ -68,11 +71,12 @@ class QueryActivity : AppCompatActivity(), Response.Listener<String>, Response.E
                 tv_price.text = result.data.saleprice.toString()
                 tv_barcode.text = result.data.barcode
                 tv_count.text = result.data.goodsnum.toString()
-                tv_state.text = result.data.goodsstate
-                tv_no.text = result.data.supplierno
-                tv_discount.text = result.data.discount.toString()
+                tv_sname.text = result.data.suppliername
+                tv_sno.text = result.data.supplierno
+
+                tv_proprice.text = result.data.promadprice.toString()
                 tv_model.text = result.data.model
-                tv_event.text = result.data.changesetno
+                tv_ration.text = result.data.rationflag
             } else {
                 Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show()
             }
@@ -97,23 +101,16 @@ class QueryActivity : AppCompatActivity(), Response.Listener<String>, Response.E
             filter.addAction(ScanManager.ACTION_DECODE)
         }
         registerReceiver(scannerGunReceiver, filter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        scanManager.closeScanner()
-    }
-
-    override fun onResume() {
-        super.onResume()
         scanManager.openScanner()
     }
+
 
     override fun onDestroy() {
         scanManager.closeScanner()
         unregisterReceiver(scannerGunReceiver)
         super.onDestroy()
     }
+
 
 
     /**
@@ -127,6 +124,7 @@ class QueryActivity : AppCompatActivity(), Response.Listener<String>, Response.E
                 val barcodeSize = intent.getIntExtra(ScanManager.BARCODE_LENGTH_TAG, 0)
                 val temp = intent.getByteExtra(ScanManager.BARCODE_TYPE_TAG, 0.toByte())
 
+                scanVib()
                 val barcodeText = String(barcodeByte, 0, barcodeSize)
                 loadQueryData(barcodeText)
             }

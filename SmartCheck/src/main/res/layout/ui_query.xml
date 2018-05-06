@@ -29,7 +29,7 @@
         android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <LinearLayout
@@ -114,12 +114,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="商品编号:"
+                    android:text="供应商名称:"
                     android:textSize="16sp"
                     />
 
                 <TextView
-                    android:id="@+id/tv_no"
+                    android:id="@+id/tv_sname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -134,20 +134,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:layout_marginTop="4dp"
+                android:paddingRight="16dp"
                 android:background="@drawable/edit_bg">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="商品状态:"
+                    android:text="供应商编号:"
                     android:textSize="16sp"
                     />
 
                 <TextView
-                    android:id="@+id/tv_state"
+                    android:id="@+id/tv_sno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -157,6 +157,7 @@
                     />
 
             </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -170,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="商品单价:"
+                    android:text="商品售价:"
                     android:textSize="16sp"
                     />
 
@@ -226,12 +227,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="商品折扣:"
+                    android:text="促销价:"
                     android:textSize="16sp"
                     />
 
                 <TextView
-                    android:id="@+id/tv_discount"
+                    android:id="@+id/tv_proprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -282,12 +283,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="是否参加活动:"
+                    android:text="促销状态:"
                     android:textSize="16sp"
                     />
 
                 <TextView
-                    android:id="@+id/tv_event"
+                    android:id="@+id/tv_ration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

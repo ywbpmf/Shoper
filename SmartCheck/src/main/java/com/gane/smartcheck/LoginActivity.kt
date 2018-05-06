@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -39,12 +40,21 @@ class LoginActivity : AppCompatActivity(), Response.Listener<JSONObject>, Respon
             toLogin(name, pass)
         }
 
-        et_user.setText("1")
-        et_pass.setText("111111")
 
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("登录中...")
         progressDialog.setCancelable(false)
+
+        val name = username(null)
+        val pass = password(null)
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pass)) {
+            et_user.setText(name)
+            et_pass.setText(pass)
+            if (intent.getBooleanExtra("auto_login", true)) {
+                toLogin(name!!, pass!!)
+            }
+        }
+
     }
 
     /**
@@ -68,8 +78,11 @@ class LoginActivity : AppCompatActivity(), Response.Listener<JSONObject>, Respon
         }
         val result = Gson().fromJson<BaseBean<LoginBean>>(response.toString(), object : TypeToken<BaseBean<LoginBean>>() {}.type)
         if (result.code == 200) {
+            username(et_user.text.toString())
+            password(et_pass.text.toString())
             RoomDb.getInstance(applicationContext).loginDao().addLoginData(result.data)
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         } else {
             Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
         }

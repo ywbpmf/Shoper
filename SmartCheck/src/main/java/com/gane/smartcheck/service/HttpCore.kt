@@ -18,7 +18,7 @@ object HttpCore {
     const val LOGIN = URL + "user/login"
 
     /** 查询商品信息(库存中查找) 080001*/
-    const val QUERYALL = URL + "product/queryAll?barcode=%s"
+    const val QUERYALL = URL + "product/queryAll?barcode=%s&shopno=%s"
 
     /**
      * 获取单号

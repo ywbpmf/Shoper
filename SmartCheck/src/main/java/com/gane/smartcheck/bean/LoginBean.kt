@@ -8,7 +8,8 @@ data class LoginBean(
         @PrimaryKey var userno: String,
         var name: String? = null,
         var state: Int = -1,
-        var shopno: String = ""
+        var shopno: String = "",
+        var shopname: String = ""
 ) {
     constructor() : this("-1")
 }

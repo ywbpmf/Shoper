@@ -7,6 +7,7 @@ import android.device.ScanManager
 import android.device.scanner.configuration.PropertyID
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.InputFilter
@@ -52,20 +53,28 @@ class CheckActivity : AppCompatActivity() {
     private var allList = ArrayList<ProductBean>()
 
     private lateinit var adapter: CheckAdapter
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ui_check)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        subTitle()
+
 
         initScan()
+
         progressDialog = ProgressDialog(this)
         progressDialog.setCancelable(false)
 
         adapter = CheckAdapter(this)
+        layoutManager = LinearLayoutManager(this)
+        rv_goods.layoutManager = layoutManager
         rv_goods.adapter = adapter
+
         btn_submit.setOnClickListener {
+            hideSoft(rv_goods)
             if (sumList.isEmpty()) {
                 Toast.makeText(this, "暂无数据.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -73,12 +82,18 @@ class CheckActivity : AppCompatActivity() {
             commitFactcheck()
         }
         tv_revoke.setOnClickListener { // 撤销
+            if (allList.isEmpty()) {
+                scanResultChange()
+                return@setOnClickListener
+            }
             val pro = allList.removeAt(allList.size - 1)
+
             scanResultChange()
             for (i in 0 until sumList.size) {
                 if (sumList[i].barcode == pro.barcode) {
                     if (sumList[i].count > 0) {
                         sumList[i].count -= 1
+                        moveToIndex(i)
                         adapter.notifyItemChanged(i)
                     }
                     break
@@ -104,6 +119,8 @@ class CheckActivity : AppCompatActivity() {
             if (jsonObj != null && jsonObj.get("code").asInt == 200) {
                 mNo = jsonObj.get("data").asJsonObject.get("factcheckno").asString
                 tv_no.text = "单号:$mNo"
+
+//                queryBarCode("6970607350010")
             } else {
                 Toast.makeText(this, "获取单号失败", Toast.LENGTH_SHORT).show()
             }
@@ -117,15 +134,15 @@ class CheckActivity : AppCompatActivity() {
     /**
      * 根据code查询商品信息
      */
-    private fun queryBarCode(barcode1: String) {
-        var barcode = "08000101"
+    private fun queryBarCode(barcode: String) {
         for (i in 0 until sumList.size) {
             if (sumList[i].barcode == barcode) { // 需添加的barcode已经存在， 则直接添加
+                moveToIndex(i)
                 sumList[i].count += 1
                 adapter.notifyItemChanged(i)
 
                 allList.add(sumList[i])
-                scanResultChange();
+                scanResultChange()
                 return
             }
         }
@@ -140,6 +157,7 @@ class CheckActivity : AppCompatActivity() {
                 for (i in 0 until sumList.size) {
                     if (sumList[i].barcode == barcode) { // 需添加的barcode已经存在， 则直接添加
                         sumList[i].count += 1
+                        moveToIndex(i)
                         adapter.notifyItemChanged(i)
                         return@StringRequest
                     }
@@ -147,8 +165,9 @@ class CheckActivity : AppCompatActivity() {
 
                 result.data.count = 1
                 sumList.add(result.data)
-                adapter.notifyItemChanged(sumList.lastIndex)
-
+                val last_index = sumList.lastIndex
+                moveToIndex(last_index)
+                adapter.notifyItemChanged(last_index)
             } else {
                 Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show()
             }
@@ -207,11 +226,12 @@ class CheckActivity : AppCompatActivity() {
                         .setPositiveButton("继续") { _, _ ->
                             sumList.clear()
                             allList.clear()
+                            scanResultChange()
                             adapter.notifyDataSetChanged()
                         }
                         .setNegativeButton("退出", { _, _ ->
                             finish()
-                        })
+                        }).show()
                 
             } else {
                 Toast.makeText(this, "盘点商品失败.", Toast.LENGTH_SHORT).show()
@@ -234,17 +254,9 @@ class CheckActivity : AppCompatActivity() {
             filter.addAction(ScanManager.ACTION_DECODE)
         }
         registerReceiver(scannerGunReceiver, filter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        scanManager.closeScanner()
-    }
-
-    override fun onResume() {
-        super.onResume()
         scanManager.openScanner()
     }
+
 
     override fun onDestroy() {
         scanManager.closeScanner()
@@ -270,6 +282,15 @@ class CheckActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 扫描到商品定位的商品的item
+     */
+    private fun moveToIndex(position: Int) {
+        if (position >= 0 && position < adapter.itemCount) {
+            layoutManager.scrollToPositionWithOffset(position, 0)
+        }
+    }
+
 
     /**
      * 扫描枪的广播
@@ -282,6 +303,7 @@ class CheckActivity : AppCompatActivity() {
                 val barcodeSize = intent.getIntExtra(ScanManager.BARCODE_LENGTH_TAG, 0)
                 val temp = intent.getByteExtra(ScanManager.BARCODE_TYPE_TAG, 0.toByte())
 
+                scanVib()
                 val barcodeText = String(barcodeByte, 0, barcodeSize)
                 queryBarCode(barcodeText)
             }
@@ -294,14 +316,17 @@ class CheckActivity : AppCompatActivity() {
 
 
         override fun onBindViewHolder(vh: VH, position: Int) {
+            vh.tv_num.text = (position + 1).toString()
             vh.tv_name.text = sumList[position].goodsname
             vh.et_count.setText(sumList[position].count.toString())
 
             vh.iv_add.setOnClickListener {
+                hideSoft(rv_goods)
                 sumList[position].count += 1
                 notifyItemChanged(position)
             }
             vh.iv_minus.setOnClickListener {
+                hideSoft(rv_goods)
                 if (sumList[position].count > 1) {
                     sumList[position].count -= 1
                     notifyItemChanged(position)
@@ -343,6 +368,7 @@ class CheckActivity : AppCompatActivity() {
             val tv_name = itemView.findViewById<TextView>(R.id.tv_name)
             val iv_minus = itemView.findViewById<ImageView>(R.id.iv_minus)
             val iv_add = itemView.findViewById<ImageView>(R.id.iv_add)
+            val tv_num = itemView.findViewById<TextView>(R.id.tv_num)
         }
 
     }

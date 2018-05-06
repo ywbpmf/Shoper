@@ -9,7 +9,6 @@ import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +34,13 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(R.layout.ui_history)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        subTitle()
+
+
 
         val checkNo = intent.getStringExtra("id")
+
+        supportActionBar?.title = checkNo
 
         val list1 = RoomDb.getInstance(applicationContext).productDao().getProductList(checkNo)
         val list2 = RoomDb.getInstance(applicationContext).productDao().getProductList(checkNo)
@@ -44,6 +48,7 @@ class HistoryActivity : AppCompatActivity() {
         if (null == list1 || list1.isEmpty()) {
             return
         }
+
         ll_content.visibility = View.VISIBLE
         tv_data.visibility = View.GONE
 
@@ -51,6 +56,7 @@ class HistoryActivity : AppCompatActivity() {
 //        var alls = HashMap<String, ProductBean>()
 
         for (i in 0 until list1.size) {
+
             val it = list1[i]
             val keyNo = it.factcheckno
 
@@ -108,7 +114,7 @@ class HistoryActivity : AppCompatActivity() {
      inner class VPAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         private val fragments = arrayOf(
-                His1Fragment(items), His2Fragment(alls)
+                His1Fragment(items), His2Fragment(alls, items.size)
         )
 
 
@@ -151,25 +157,25 @@ class His1Fragment(val data: LinkedHashMap<String, ArrayList<ProductBean>>) : Fr
 }
 
 @SuppressLint("ValidFragment")
-class His2Fragment(val data: HashMap<String, ProductBean>) : Fragment() {
+class His2Fragment(val data: HashMap<String, ProductBean>, val pcCount: Int) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fm_his2, null)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        text1.text = "共提交 ${data.size} 批次"
-//        layout.removeAllViews()
-//        for ((_, v) in data) {
-//            text2.text = v.opdate
-//            val itView = LayoutInflater.from(context).inflate(R.layout.adapter_his_item, null)
-//            val text1 = itView.findViewById<TextView>(R.id.text1)
-//            val text2 = itView.findViewById<TextView>(R.id.text2)
-//            text1.text = v.goodsname
-//            text2.text = v.count.toString()
-//            layout.addView(itView)
-//        }
+        super.onViewCreated(view, savedInstanceState)
+        text21.text = "共提交 $pcCount 批次"
+
+        layout2.removeAllViews()
+        for ((_, v) in data) {
+            val itView = LayoutInflater.from(context).inflate(R.layout.adapter_his_item, null)
+            val text1 = itView.findViewById<TextView>(R.id.text1)
+            val text2 = itView.findViewById<TextView>(R.id.text2)
+            text1.text = v.goodsname
+            text2.text = v.count.toString()
+            layout2.addView(itView)
+        }
     }
 
 }
@@ -187,7 +193,7 @@ class His1Adapter(val data: LinkedHashMap<String, ArrayList<ProductBean>>): Recy
     override fun onBindViewHolder(holder: VH, position: Int) {
         val it = data[keyList[position]]!!
         holder.text1.text = it[0]!!.factcheckno
-        holder.text2.text = it[0]!!.opdate
+        holder.text2.text = it[0]!!.opdate!!.timeMdHm()
         holder.layout.removeAllViews()
         for (i in 0 until it.size) {
             val itView = LayoutInflater.from(holder.itemView.context).inflate(R.layout.adapter_his_item, null)
