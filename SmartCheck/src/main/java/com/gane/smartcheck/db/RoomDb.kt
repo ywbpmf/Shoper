@@ -7,7 +7,7 @@ import android.content.Context
 import com.gane.smartcheck.bean.LoginBean
 import com.gane.smartcheck.bean.ProductBean
 
-@Database(entities = arrayOf(LoginBean::class, ProductBean::class), version = 3)
+@Database(entities = arrayOf(LoginBean::class, ProductBean::class), version = 4)
 abstract class RoomDb : RoomDatabase() {
 
     companion object {
