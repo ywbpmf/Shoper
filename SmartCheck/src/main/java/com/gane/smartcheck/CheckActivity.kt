@@ -163,7 +163,7 @@ class CheckActivity : AppCompatActivity() {
                     }
                 }
 
-                result.data.count = 1
+                result.data.count = 0
                 sumList.add(result.data)
                 val last_index = sumList.lastIndex
                 moveToIndex(last_index)
@@ -327,7 +327,7 @@ class CheckActivity : AppCompatActivity() {
             }
             vh.iv_minus.setOnClickListener {
                 hideSoft(rv_goods)
-                if (sumList[position].count > 1) {
+                if (sumList[position].count > 0) {
                     sumList[position].count -= 1
                     notifyItemChanged(position)
                 }
