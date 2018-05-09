@@ -6,6 +6,7 @@ import android.content.*
 import android.device.ScanManager
 import android.device.scanner.configuration.PropertyID
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -17,6 +18,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -320,6 +322,9 @@ class CheckActivity : AppCompatActivity() {
             vh.tv_name.text = sumList[position].goodsname
             vh.et_count.setText(sumList[position].count.toString())
 
+
+
+
             vh.iv_add.setOnClickListener {
                 hideSoft(rv_goods)
                 sumList[position].count += 1
@@ -351,6 +356,19 @@ class CheckActivity : AppCompatActivity() {
                 }
 
             })
+
+
+            vh.et_count.setSelection(vh.et_count.text.length)
+
+            vh.et_count.isFocusable = true
+            vh.et_count.isFocusableInTouchMode = true
+            vh.et_count.requestFocus()
+
+            Handler().postDelayed({
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(vh.itemView, 0)
+            }, 250)
+
 
         }
 
