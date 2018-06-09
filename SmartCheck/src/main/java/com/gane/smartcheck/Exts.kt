@@ -10,8 +10,15 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.gane.smartcheck.db.RoomDb
+import com.gane.smartcheck.service.HttpCore
 import java.text.SimpleDateFormat
 
+fun Context.ip() = getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE)
+        .getString("IP_CONFIG", HttpCore.DEFAULT_IP)
+
+fun Context.ip(name: String?) {
+    getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE).edit().putString("IP_CONFIG", name).commit()
+}
 
 fun Context.name() = getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE)
         .getString("LOGIN_NAME", null)
@@ -19,8 +26,6 @@ fun Context.name() = getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE)
 fun Context.name(name: String?) {
     getSharedPreferences("_shoper_prefs", Context.MODE_PRIVATE).edit().putString("LOGIN_NAME", name).commit()
 }
-
-
 
 fun String.timeMdHm(): String {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")

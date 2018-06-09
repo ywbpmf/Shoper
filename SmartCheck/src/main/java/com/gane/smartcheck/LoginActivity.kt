@@ -1,11 +1,16 @@
 package com.gane.smartcheck
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.android.volley.Request
@@ -91,6 +96,29 @@ class LoginActivity : AppCompatActivity(), Response.Listener<JSONObject>, Respon
     override fun onErrorResponse(error: VolleyError?) {
         progressDialog.dismiss()
         Toast.makeText(this, "登录异常", Toast.LENGTH_SHORT).show()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_login, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (R.id.ip == item?.itemId) {
+            val dialogView = layoutInflater.inflate(R.layout.dialog_ip, null)
+            val etIp = dialogView.findViewById<EditText>(R.id.et_ip)
+            etIp.setText(ip())
+            etIp.setSelection(ip().length)
+            AlertDialog.Builder(this)
+                    .setView(dialogView)
+                    .setTitle("IP配置")
+                    .setPositiveButton("确认") { _, _ ->
+                        ip(etIp.text.toString())
+                    }
+                    .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

@@ -3,6 +3,7 @@ package com.gane.smartcheck.service
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.gane.smartcheck.App
+import com.gane.smartcheck.ip
 
 object HttpCore {
 
@@ -10,27 +11,40 @@ object HttpCore {
         Volley.newRequestQueue(App.instance)
     }
 
+    const val DEFAULT_IP = "119.145.110.173"
+
+    private fun ip(): String {
+        var ip = App.instance!!.ip().toLowerCase()
+        if (ip.startsWith("http://"))
+            ip = ip.substring("http://".length)
+        return ip
+    }
 
 
-    private const val URL = "http://119.145.110.173:9101/api/"
+    private val URL_FORMAT = "http://%s:9101/api/"
+
+    private fun url(): String {
+        val url = String.format(URL_FORMAT, ip())
+        return String.format(URL_FORMAT, ip())
+    }
 
     /** 登录 */
-    const val LOGIN = URL + "user/login"
+    val LOGIN = url() + "user/login"
 
     /** 查询商品信息(库存中查找) 080001*/
-    const val QUERYALL = URL + "product/queryAll?barcode=%s&shopno=%s"
+    val QUERYALL = url() + "product/queryAll?barcode=%s&shopno=%s"
 
     /**
      * 获取单号
      */
-    const val QUERYNO = URL + "factcheck/queryno?shopno=%s"
+    val QUERYNO = url() + "factcheck/queryno?shopno=%s"
 
     /** 提交盘点 */
-    const val COMMIT = URL + "factcheck/commit"
+    val COMMIT = url() + "factcheck/commit"
 
     /**
      * 查询商品信息（不包括库存）
      */
-    const val INST = URL + "product/query?barcode=%s"
+    val INST = url() + "product/query?barcode=%s"
 
 }

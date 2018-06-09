@@ -14,7 +14,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.Spanned
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,7 @@ class CheckActivity : AppCompatActivity() {
     private lateinit var mNo: String
 
     /** (barcode, productList) */
-    private var sumList = ArrayList<ProductBean>()
+//    private var sumList = ArrayList<ProductBean>()
 
     private var allList = ArrayList<ProductBean>()
 
@@ -77,7 +76,8 @@ class CheckActivity : AppCompatActivity() {
 
         btn_submit.setOnClickListener {
             hideSoft(rv_goods)
-            if (sumList.isEmpty()) {
+//            if (sumList.isEmpty()) {
+            if (allList.isEmpty()) {
                 Toast.makeText(this, "暂无数据.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -88,19 +88,12 @@ class CheckActivity : AppCompatActivity() {
                 scanResultChange()
                 return@setOnClickListener
             }
-            val pro = allList.removeAt(allList.size - 1)
 
+            val last = allList.size - 1
+            allList.removeAt(last)
+            adapter.notifyItemRemoved(last)
+            moveToIndex(last-1)
             scanResultChange()
-            for (i in 0 until sumList.size) {
-                if (sumList[i].barcode == pro.barcode) {
-                    if (sumList[i].count > 0) {
-                        sumList[i].count -= 1
-                        moveToIndex(i)
-                        adapter.notifyItemChanged(i)
-                    }
-                    break
-                }
-            }
         }
         tv_his.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java)
@@ -123,6 +116,9 @@ class CheckActivity : AppCompatActivity() {
                 tv_no.text = "单号:$mNo"
 
 //                queryBarCode("6970607350010")
+//                Handler().postDelayed( {
+//                    queryBarCode("6970607350010")
+//                }, 10000)
             } else {
                 Toast.makeText(this, "获取单号失败", Toast.LENGTH_SHORT).show()
             }
@@ -137,39 +133,28 @@ class CheckActivity : AppCompatActivity() {
      * 根据code查询商品信息
      */
     private fun queryBarCode(barcode: String) {
-        for (i in 0 until sumList.size) {
-            if (sumList[i].barcode == barcode) { // 需添加的barcode已经存在， 则直接添加
-                moveToIndex(i)
-                sumList[i].count += 1
-                adapter.notifyItemChanged(i)
-
-                allList.add(sumList[i])
-                scanResultChange()
-                return
-            }
-        }
-
+//        for (i in 0 until allList.size) {
+//            if (allList[i].barcode == barcode) { // 需添加的barcode已经存在， 则直接添加
+//                allList.add(sumList[i])
+//                moveToIndex(allList.size)
+//                sumList[i].count += 1
+//                adapter.notifyItemChanged(i)
+//
+//
+//                scanResultChange()
+//                return
+//            }
+//        }
         progressDialog.setMessage("查询中...")
         progressDialog.show()
         val request = StringRequest(String.format(INST, barcode), {
             val result = Gson().fromJson<BaseBean<ProductBean>>(it, object : TypeToken<BaseBean<ProductBean>>() {}.type)
             if (result != null && result.code == 200) {
+                result.data.count = 0
                 allList.add(result.data)
                 scanResultChange()
-                for (i in 0 until sumList.size) {
-                    if (sumList[i].barcode == barcode) { // 需添加的barcode已经存在， 则直接添加
-                        sumList[i].count += 1
-                        moveToIndex(i)
-                        adapter.notifyItemChanged(i)
-                        return@StringRequest
-                    }
-                }
-
-                result.data.count = 0
-                sumList.add(result.data)
-                val last_index = sumList.lastIndex
-                moveToIndex(last_index)
-                adapter.notifyItemChanged(last_index)
+                moveToIndex(allList.lastIndex)
+                adapter.notifyItemChanged(allList.lastIndex)
             } else {
                 Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show()
             }
@@ -185,26 +170,31 @@ class CheckActivity : AppCompatActivity() {
      * 提交盘点
      */
     private fun commitFactcheck() {
+        btn_submit.isEnabled = false
+
         val loginBean = RoomDb.getInstance(applicationContext).loginDao().getLoginData()
 
         val resultList = ArrayList<ProductBean>()
 
         val jsonAry = JSONArray()
-        for (i in 0 until sumList.size) {
-            if (sumList[i].count <= 0)
+        for (i in 0 until allList.size) {
+            if (allList[i].count <= 0)
                 break
-            resultList.add(sumList[i])
+            resultList.add(allList[i])
             val obj = JSONObject()
-            obj.put("barcode", sumList[i].barcode)
-            obj.put("checknum", sumList[i].count)
+            obj.put("barcode", allList[i].barcode)
+            obj.put("checknum", allList[i].count)
             jsonAry.put(obj)
         }
 
         if (resultList.isEmpty()) {
             Toast.makeText(this, "暂无数据.", Toast.LENGTH_SHORT).show()
+            btn_submit.isEnabled = true
             return
         }
 
+        progressDialog.setMessage("盘点中...")
+        progressDialog.show()
 
         val jsonObj = JSONObject()
         jsonObj.put("checkno", mNo)
@@ -226,7 +216,6 @@ class CheckActivity : AppCompatActivity() {
                 AlertDialog.Builder(this).setTitle("提示")
                         .setMessage("提交判断数据成功，是否继续")
                         .setPositiveButton("继续") { _, _ ->
-                            sumList.clear()
                             allList.clear()
                             scanResultChange()
                             adapter.notifyDataSetChanged()
@@ -238,12 +227,17 @@ class CheckActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "盘点商品失败.", Toast.LENGTH_SHORT).show()
             }
+            btn_submit.isEnabled = true
+            progressDialog.dismiss()
         }, {
             Toast.makeText(this, "盘点发生异常.", Toast.LENGTH_SHORT).show()
+            btn_submit.isEnabled = true
+            progressDialog.dismiss()
         })
         request.tag = "CheckActivity"
         volleyQueue.add(request)
     }
+
 
     private fun initScan() {
         scanManager.switchOutputMode(0)
@@ -319,21 +313,21 @@ class CheckActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(vh: VH, position: Int) {
             vh.tv_num.text = (position + 1).toString()
-            vh.tv_name.text = sumList[position].goodsname
-            vh.et_count.setText(sumList[position].count.toString())
+            vh.tv_name.text = allList[position].goodsname
+            vh.et_count.setText(allList[position].count.toString())
 
 
 
 
             vh.iv_add.setOnClickListener {
                 hideSoft(rv_goods)
-                sumList[position].count += 1
+                allList[position].count += 1
                 notifyItemChanged(position)
             }
             vh.iv_minus.setOnClickListener {
                 hideSoft(rv_goods)
-                if (sumList[position].count > 0) {
-                    sumList[position].count -= 1
+                if (allList[position].count > 0) {
+                    allList[position].count -= 1
                     notifyItemChanged(position)
                 }
             }
@@ -346,7 +340,7 @@ class CheckActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         0
                     }
-                    sumList[position].count = count
+                    allList[position].count = count
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -377,7 +371,7 @@ class CheckActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return sumList.size
+            return allList.size
         }
 
 
