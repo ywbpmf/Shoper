@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity(), Response.Listener<JSONObject>, Respon
         if (result.code == 200) {
             username(et_user.text.toString())
             password(et_pass.text.toString())
+            RoomDb.getInstance(applicationContext).loginDao().deleteAll()
             RoomDb.getInstance(applicationContext).loginDao().addLoginData(result.data)
             startActivity(Intent(this, MainActivity::class.java))
             finish()

@@ -15,4 +15,7 @@ interface LoginDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addLoginData(loginBean: LoginBean)
 
+    @Query("DELETE FROM t_login")
+    fun deleteAll()
+
 }

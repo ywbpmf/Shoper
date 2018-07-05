@@ -56,6 +56,8 @@ class CheckActivity : AppCompatActivity() {
     private lateinit var adapter: CheckAdapter
     private lateinit var layoutManager: LinearLayoutManager
 
+    private var submitClickTimeMs = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ui_check)
@@ -75,6 +77,13 @@ class CheckActivity : AppCompatActivity() {
         rv_goods.adapter = adapter
 
         btn_submit.setOnClickListener {
+
+            if (System.currentTimeMillis() - submitClickTimeMs < 1200) {
+                return@setOnClickListener
+            }
+
+            submitClickTimeMs = System.currentTimeMillis()
+
             hideSoft(rv_goods)
 //            if (sumList.isEmpty()) {
             if (allList.isEmpty()) {
