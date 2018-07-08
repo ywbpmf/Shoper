@@ -7,10 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gane.shoper.R
 import com.gane.shoper.app.SuperFragment
 import com.gane.shoper.ui.statistics.AnalyzeActivity
-import com.gane.shoper.ui.goods.GoodsActivity
+import com.gane.shoper.ui.goods.GoodsInfoActivity
 import com.gane.shoper.ui.sales.SalesOrdersActivity
 import com.gane.shoper.ui.billing.BillingActivity
-import com.gane.shoper.ui.billing.PayChannelActivity
 import com.gane.shoper.ui.sales_return.SalesReturnActivity
 import com.gane.shoper.ui.sales_send.SalesSendActivity
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
@@ -26,7 +25,7 @@ class MainFragment : SuperFragment(), BaseQuickAdapter.OnItemClickListener {
 
     private val pages = arrayOf(BillingActivity::class.java, SalesOrdersActivity::class.java,
             SalesReturnActivity::class.java, AnalyzeActivity::class.java,
-            SalesSendActivity::class.java, GoodsActivity::class.java)
+            SalesSendActivity::class.java, GoodsInfoActivity::class.java)
 
     override fun layoutId() = R.layout.fm_main
 

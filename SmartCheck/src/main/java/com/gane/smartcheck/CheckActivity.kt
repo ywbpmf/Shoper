@@ -217,14 +217,17 @@ class CheckActivity : AppCompatActivity() {
                 var opdate = it.getJSONObject("data").getString("opdate")
                 for (i in 0 until resultList.size) {
                     resultList[i].factcheckno = factcheckno
-                    resultList[i].opdate = opdate
+//                    resultList[i].opdate = opdate
+                    resultList[i].opdate = System.currentTimeMillis().timeMdHm()
                     resultList[i].checkno = mNo
                 }
                 RoomDb.getInstance(applicationContext).productDao().insert(resultList)
                 
                 AlertDialog.Builder(this).setTitle("提示")
                         .setMessage("提交判断数据成功，是否继续")
+                        .setCancelable(false)
                         .setPositiveButton("继续") { _, _ ->
+                            btn_submit.isEnabled = true
                             allList.clear()
                             scanResultChange()
                             adapter.notifyDataSetChanged()
@@ -235,8 +238,9 @@ class CheckActivity : AppCompatActivity() {
                 
             } else {
                 Toast.makeText(this, "盘点商品失败.", Toast.LENGTH_SHORT).show()
+                btn_submit.isEnabled = true
             }
-            btn_submit.isEnabled = true
+
             progressDialog.dismiss()
         }, {
             Toast.makeText(this, "盘点发生异常.", Toast.LENGTH_SHORT).show()

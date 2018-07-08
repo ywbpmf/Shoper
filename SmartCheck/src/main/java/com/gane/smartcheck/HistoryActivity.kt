@@ -193,7 +193,8 @@ class His1Adapter(val data: LinkedHashMap<String, ArrayList<ProductBean>>): Recy
     override fun onBindViewHolder(holder: VH, position: Int) {
         val it = data[keyList[position]]!!
         holder.text1.text = it[0]!!.factcheckno
-        holder.text2.text = it[0]!!.opdate!!.timeMdHm()
+//        holder.text2.text = it[0]!!.opdate!!.timeMdHm()
+        holder.text2.text = it[0]!!.opdate
         holder.layout.removeAllViews()
         for (i in 0 until it.size) {
             val itView = LayoutInflater.from(holder.itemView.context).inflate(R.layout.adapter_his_item, null)
