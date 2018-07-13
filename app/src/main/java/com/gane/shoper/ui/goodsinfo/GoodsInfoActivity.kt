@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.ui_goods.*
  */
 class GoodsInfoActivity : SuperActivity(), GoodsInfoContract.View {
 
-    override var presenter: GoodsInfoContract.Presenter = GoodsPresenter(this)
+    override var presenter: GoodsInfoContract.Presenter = GoodsInfoPresenter(this)
 
     private lateinit var adapter: GoodsAdapter
 

@@ -27,12 +27,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="@dimen/dp_72"
+                    android:layout_marginTop="20dp"
                     android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/vip_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_16"
+                        android:textColor="@color/text_red"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="右上角按钮扫描二维码可获取会员信息"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:textColor="@color/text_hint"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:text="@string/input_barcode"
                         />
 

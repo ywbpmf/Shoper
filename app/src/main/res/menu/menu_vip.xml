@@ -2,10 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_ok"
-          android:title="@string/add_goods"
-          android:icon="@drawable/ic_tick"
-          app:showAsAction="ifRoom|never"
+    <item android:id="@+id/menu_vip"
+          android:title="会员Vip"
+          app:showAsAction="ifRoom|withText"
         />
 
 </menu>

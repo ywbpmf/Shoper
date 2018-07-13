@@ -46,6 +46,7 @@
 
     <string name="orders_no">订单编号</string>
     <string name="orders_no_">订单编号:</string>
+    <string name="orders_money_">订单金额:</string>
     <string name="orders_time">下单时间</string>
     
     <string name="go_pay">去支付</string>
@@ -116,10 +117,13 @@
     <string name="zhifubao">支付宝</string>
     <string name="shop_pay">商场收银</string>
     <string name="choice_pay_type">请选择支付方式:</string>
-    <string name="pay_money">支付金额:</string>
+    <string name="pay_money">未付金额:</string>
     <string name="confirm_pay">确认支付</string>
 
-    <string name="vip">uiu</string>
+    <string name="vip">会员Vip</string>
+    <string name="union_pay">银联支付</string>
+    <string name="mall_pay">商场收银</string>
+
 
 
 </resources>

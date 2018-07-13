@@ -2,11 +2,11 @@ package com.gane.shoper.ui.billing
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -17,16 +17,19 @@ import com.gane.shoper.app.SuperActivity
 import com.gane.shoper.entity.InstBarcodesBean
 import com.gane.shoper.entity.OrderCommitBean
 import com.gane.shoper.ext.hideKeyboard
+import com.gane.shoper.ui.pay.PayChannelActivity
 import com.gane.shoper.ui.sales.BillingContract
 import com.gane.shoper.ui.sales.BillingPresenter
 import com.kaopiz.kprogresshud.KProgressHUD
-import io.reactivex.internal.operators.flowable.FlowableTake
+import com.landicorp.android.scan.scanDecoder.ScanDecoder
 import kotlinx.android.synthetic.main.ui_biliing.*
+import sdk.landi.CameraScaner
 
 /**
  *
  */
-class BillingActivity : SuperActivity(), BillingContract.View {
+class BillingActivity : SuperActivity(), BillingContract.View,  ScanDecoder.ResultCallback {
+
 
     override var presenter: BillingContract.Presenter = BillingPresenter(this)
 
@@ -54,6 +57,8 @@ class BillingActivity : SuperActivity(), BillingContract.View {
 
 
     private lateinit var billingAdapter: BillingAdapter
+
+    private var cameraScaner: CameraScaner? = null
 
     override fun layoutId() = R.layout.ui_biliing
 
@@ -232,6 +237,31 @@ class BillingActivity : SuperActivity(), BillingContract.View {
                 .setMessage(R.string.commit_orders_err)
                 .setNegativeButton(R.string.okey) { dialog, which ->  }
                 .show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_vip, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_vip) {
+            if (cameraScaner == null) {
+                cameraScaner = CameraScaner(this, this)
+            }
+            cameraScaner!!.openBack()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResult(p0: String?) {
+        vip_name.text = "会员姓名：$p0"
+    }
+
+    override fun onCancel() {
+    }
+
+    override fun onTimeout() {
     }
 
 

@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="@dimen/dp_40">
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -36,6 +36,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_orders_btn1"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:textSize="22sp"
+                    android:text="201584200545"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/orders_money_"
+                    android:textColor="@color/text_blank"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_orders_btn2"
                     android:layout_marginLeft="@dimen/dp_24"
                     android:textSize="22sp"
                     android:text="201584200545"
@@ -59,12 +85,12 @@
                 />
 
             <TextView
-                android:id="@+id/tv_money"
+                android:id="@+id/tv_pay_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_red"
                 android:layout_marginLeft="@dimen/dp_24"
-                android:textSize="48sp"
+                android:textSize="32sp"
                 android:text="55:00"
                 />
         </LinearLayout>
@@ -82,76 +108,42 @@
                 android:textColor="@color/text_blank"
                 />
 
-            <LinearLayout
-                android:id="@+id/ll_wx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="64dp"
-                android:layout_marginTop="@dimen/margin"
-                android:gravity="center_vertical">
-                <RadioButton
-                    android:id="@+id/rb_wx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_weixin_pay"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_zfb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="64dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical">
-                <RadioButton
-                    android:id="@+id/rb_zfb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_zhifubao_pay"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_sc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="64dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical">
-                <RadioButton
-                    android:id="@+id/rb_sc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+           <RadioGroup
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_shouyin"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    />
+               <RadioButton
+                   android:id="@+id/rb_union"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:drawableLeft="@drawable/ic_unionpay"
+                   android:drawablePadding="@dimen/dp_12"
+                   android:text="@string/union_pay"
+                   />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:text="商场收银"
-                    android:textColor="@color/text_blank"
-                    />
+               <RadioButton
+                   android:id="@+id/rb_scan"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:drawableLeft="@drawable/ic_qrcode_pay"
+                   android:text="@string/union_pay"
+                   android:drawablePadding="@dimen/dp_12"
+                    android:checked="true"
+                   />
 
-        </LinearLayout>
+               <RadioButton
+                   android:id="@+id/rb_mall"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:drawableLeft="@drawable/ic_mall_paly"
+                   android:drawablePadding="@dimen/dp_12"
+                   android:text="@string/mall_pay"
+                   />
+
+           </RadioGroup>
+
+
 
 
             <Button
