@@ -10,6 +10,7 @@ import android.widget.ImageView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
 
 /**
  *
@@ -66,6 +67,13 @@ fun Context.pass(pass: String?) {
 }
 
 inline fun Observable<Any>.io_main() = subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+fun String.timeMdHm(): String {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    val date = format.parse(this)
+    return SimpleDateFormat("MM-dd HH:mm").format(date)
+
+}
 
 
 

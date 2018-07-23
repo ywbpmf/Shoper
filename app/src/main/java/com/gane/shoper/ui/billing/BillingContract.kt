@@ -2,6 +2,7 @@ package com.gane.shoper.ui.sales
 
 import com.gane.shoper.entity.InstBarcodesBean
 import com.gane.shoper.entity.OrderCommitBean
+import com.gane.shoper.entity.VipCard
 import com.gane.shoper.mvp.BasePresenter
 import com.gane.shoper.mvp.BaseView
 import com.gane.shoper.ui.billing.Billing
@@ -18,6 +19,10 @@ interface BillingContract {
         fun commitOrderSuccess(data: OrderCommitBean)
         fun commitOrderError()
 
+        fun loadCardSuccess(card: VipCard)
+
+        fun loadCardError()
+
     }
 
     interface Presenter : BasePresenter {
@@ -31,6 +36,11 @@ interface BillingContract {
          * 开单
          */
         fun openBilling(data: List<Billing>)
+
+        /**
+         * 加载会员卡信息
+         */
+        fun loadVipCard(cardno: String)
 
     }
 

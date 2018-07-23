@@ -79,5 +79,21 @@ class BillingPresenter(private val view: BillingContract.View) : BillingContract
                 })
     }
 
+    override fun loadVipCard(cardno: String) {
+        RetrofitCore.getInstance().getVipCard(cardno)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( {
+                    if (it.code == HttpCode.OK && it.data != null) {
+                        // 保存数据到application中
+                        view.loadCardSuccess(it.data!!)
+                    } else {
+                        view.loadCardError()
+                    }
+                }, {
+                    view.loadCardError()
+                })
+    }
+
 
 }

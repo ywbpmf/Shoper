@@ -16,7 +16,9 @@ import com.gane.shoper.R
 import com.gane.shoper.app.SuperActivity
 import com.gane.shoper.entity.InstBarcodesBean
 import com.gane.shoper.entity.OrderCommitBean
+import com.gane.shoper.entity.VipCard
 import com.gane.shoper.ext.hideKeyboard
+import com.gane.shoper.ext.timeMdHm
 import com.gane.shoper.ui.pay.PayChannelActivity
 import com.gane.shoper.ui.sales.BillingContract
 import com.gane.shoper.ui.sales.BillingPresenter
@@ -239,6 +241,7 @@ class BillingActivity : SuperActivity(), BillingContract.View,  ScanDecoder.Resu
                 .show()
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_vip, menu)
         return super.onCreateOptionsMenu(menu)
@@ -255,7 +258,21 @@ class BillingActivity : SuperActivity(), BillingContract.View,  ScanDecoder.Resu
     }
 
     override fun onResult(p0: String?) {
-        vip_name.text = "会员姓名：$p0"
+        if (TextUtils.isEmpty(p0))
+            return
+
+        presenter.loadVipCard(p0!!)
+        kLoading?.show()
+    }
+
+    override fun loadCardSuccess(card: VipCard) {
+        vip_name.text = "余额：" + card.balance + "\n积分：" + card.addr + "\n有效期：" + card.useful!!.timeMdHm()
+        kLoading?.dismiss()
+    }
+
+    override fun loadCardError() {
+        kLoading?.dismiss()
+        Toast.makeText(this, "找不到会员信息", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCancel() {

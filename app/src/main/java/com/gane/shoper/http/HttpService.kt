@@ -51,5 +51,10 @@ interface HttpService {
     fun getStatistics(@Query("clerkno") clerkno: String, @Query("begindate") begindate: String,
                       @Query("enddate") enddate: String) : Observable<BaseBean<StatisticsEntity>>
 
+    /**
+     * 查询会员卡信息
+     */
+    @GET("card/query")
+    fun getVipCard(@Query("cardno") cardNo: String) : Observable<BaseBean<VipEntity>>
 
 }
