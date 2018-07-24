@@ -38,7 +38,6 @@
                     android:textColor="@color/text_orders_btn1"
                     android:layout_marginLeft="@dimen/dp_24"
                     android:textSize="22sp"
-                    android:text="201584200545"
                     />
 
             </LinearLayout>
@@ -64,7 +63,6 @@
                     android:textColor="@color/text_orders_btn2"
                     android:layout_marginLeft="@dimen/dp_24"
                     android:textSize="22sp"
-                    android:text="201584200545"
                     />
 
             </LinearLayout>
@@ -91,10 +89,8 @@
                 android:textColor="@color/text_red"
                 android:layout_marginLeft="@dimen/dp_24"
                 android:textSize="32sp"
-                android:text="55:00"
                 />
         </LinearLayout>
-
 
 
             <View style="@style/Line_Style" android:layout_marginTop="@dimen/dp_32" />
@@ -111,6 +107,7 @@
            <RadioGroup
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:layout_margin="@dimen/margin"
                android:orientation="vertical">
 
                <RadioButton
@@ -127,6 +124,8 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:drawableLeft="@drawable/ic_qrcode_pay"
+                   android:layout_marginTop="@dimen/margin"
+                   android:layout_marginBottom="@dimen/margin"
                    android:text="@string/union_pay"
                    android:drawablePadding="@dimen/dp_12"
                     android:checked="true"

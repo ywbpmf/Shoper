@@ -15,7 +15,8 @@ class TokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var original = chain.request()
         val request = original .newBuilder()
-                .header("Authorization", ShoperApp.self.token())
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", ShoperApp.self.token())
                 .method(original .method(), original .body())
                 .build()
         return chain.proceed(request)

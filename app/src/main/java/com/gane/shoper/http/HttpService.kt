@@ -2,6 +2,7 @@ package com.gane.shoper.http
 
 import com.gane.shoper.entity.*
 import com.gane.shoper.ui.billing.BillingAll
+import com.gane.shoper.ui.billing.PayBody
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -27,7 +28,6 @@ interface HttpService {
     /**
      * 提交订单
      */
-    @Headers("Content-Type: application/json")
     @POST("order/commit")
     fun commitOrders(@Body billingAll: BillingAll) : Observable<BaseBean<OrderCommitBean>>
 
@@ -55,6 +55,11 @@ interface HttpService {
      * 查询会员卡信息
      */
     @GET("card/query")
-    fun getVipCard(@Query("cardno") cardNo: String) : Observable<BaseBean<VipEntity>>
+    fun getVipCard(@Query("cardno") cardNo: String) : Observable<BaseBean<VipCard>>
+    /**
+     * 查询会员卡信息
+     */
+    @GET("pay/scan")
+    fun scanPay(@Body pay: PayBody) : Observable<BaseBean<Any>>
 
 }

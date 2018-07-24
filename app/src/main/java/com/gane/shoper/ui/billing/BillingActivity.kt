@@ -165,7 +165,7 @@ class BillingActivity : SuperActivity(), BillingContract.View,  ScanDecoder.Resu
      *
      */
     private fun inputIsOk(): Boolean {
-        val code = spinner.selectedItem.toString()
+        val code = spinner.selectedItem.toString().split("\n")[0]
         var moneyStr = et_money.text.toString().trim()
 
         if (TextUtils.isEmpty(code) || TextUtils.isEmpty(moneyStr)) {
@@ -256,6 +256,8 @@ class BillingActivity : SuperActivity(), BillingContract.View,  ScanDecoder.Resu
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
     override fun onResult(p0: String?) {
         if (TextUtils.isEmpty(p0))

@@ -52,17 +52,10 @@ class BillingPresenter(private val view: BillingContract.View) : BillingContract
 
 
     override fun openBilling(data: List<Billing>) {
-        val jsonArray = Gson().toJsonTree(data, object : TypeToken<List<Billing>>() {}.type).asJsonArray
-
-//        var jsonObj = JsonObject()
         val supplierno = ShoperApp.appEntity.supplierno ?: ""
         val clerkno = ShoperApp.appEntity.clerkno ?: ""
-//        jsonObj.addProperty("supplierno", supplierno)
-//        jsonObj.addProperty("clerkno", clerkno)
-//        jsonObj.add("orderInfo", jsonArray)
 
         val billingAll = BillingAll(supplierno, clerkno, data)
-        val text = Gson().toJson(billingAll)
 
         RetrofitCore.getInstance().commitOrders(billingAll)
                 .subscribeOn(Schedulers.io())

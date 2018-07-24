@@ -13,3 +13,8 @@ data class BillingAll(
         val clerkno: String,
         val orderInfo: List<Billing>
 )
+
+data class PayBody(
+        val orderId: String,
+        val barcode: String
+)
