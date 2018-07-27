@@ -18,3 +18,7 @@ data class PayBody(
         val orderId: String,
         val barcode: String
 )
+
+data class QueryPayBody(
+        val id: String
+)

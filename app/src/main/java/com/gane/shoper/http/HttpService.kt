@@ -3,7 +3,9 @@ package com.gane.shoper.http
 import com.gane.shoper.entity.*
 import com.gane.shoper.ui.billing.BillingAll
 import com.gane.shoper.ui.billing.PayBody
+import com.gane.shoper.ui.billing.QueryPayBody
 import io.reactivex.Observable
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 /**
@@ -59,7 +61,20 @@ interface HttpService {
     /**
      * 查询会员卡信息
      */
-    @GET("pay/scan")
+    @POST("pay/scan")
     fun scanPay(@Body pay: PayBody) : Observable<BaseBean<Any>>
+
+    /**
+     * 订单查询
+     *
+     * @param clerkno 用户编号
+     * @param paystate 订单支付状态 00 = 未支付  01 = 已支付
+     * @param offset 偏移量
+     * @param limit 查询数量
+     */
+    @GET("order/queryDetail")
+    fun getOrderById(@Body body: QueryPayBody) : Observable<BaseBean<OrderQueryBean>>
+
+
 
 }

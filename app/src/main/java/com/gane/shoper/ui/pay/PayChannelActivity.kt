@@ -1,13 +1,17 @@
 package com.gane.shoper.ui.pay
 
+import android.Manifest
 import android.app.AlertDialog
+import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
 import android.widget.Toast
+import com.gane.shoper.BuildConfig
 import com.gane.shoper.R
 import com.gane.shoper.app.SuperActivity
 import com.gane.shoper.http.HttpCode
 import com.gane.shoper.http.RetrofitCore
 import com.gane.shoper.ui.billing.PayBody
+import com.gane.shoper.ui.billing.QueryPayBody
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.landicorp.android.scan.scanDecoder.ScanDecoder
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,6 +25,7 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
     companion object {
         val KEY_MONEY = "MONEY"
         val KEY_NO = "NO"
+        val isDebug = BuildConfig.DEBUG
     }
 
     var orderMoney: Double = 0.0    // 订单金额
@@ -30,15 +35,20 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
 
     override fun layoutId() = R.layout.ui_pay_channel
 
-    private var kCommiting: KProgressHUD? = null
+    private var kProgressHUD: KProgressHUD? = null
+//    private var qProgressHUD: KProgressHUD? = null
 
     override fun initView() {
+//        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1)
+
 
         orderMoney = intent.getDoubleExtra(KEY_MONEY, 0.00)
         orderNo = intent.getStringExtra(KEY_NO)
 
-        kCommiting = KProgressHUD(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+        kProgressHUD = KProgressHUD(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(false).setLabel(getString(R.string.pay_ing))
+//        qProgressHUD = KProgressHUD(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                .setCancellable(false).setLabel(getString(R.string.pay_ing))
 
         tv_no.text = orderNo
         tv_money.text = orderMoney.toString()
@@ -52,10 +62,15 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
                 return@setOnClickListener
             }
         }
-        if (cameraScaner == null) {
-            cameraScaner = CameraScaner(this, this)
+
+        if (isDebug) {
+
+        } else {
+            if (cameraScaner == null) {
+                cameraScaner = CameraScaner(this, this)
+            }
+            cameraScaner!!.openBack()
         }
-        cameraScaner!!.openBack()
     }
 
 
@@ -64,7 +79,8 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
         if (TextUtils.isEmpty(p0))
             return
 
-        kCommiting?.show()
+        kProgressHUD?.show()
+        scanPay(p0!!)
     }
 
     override fun onCancel() {
@@ -83,12 +99,38 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
     }
      */
     private fun scanPay(scanCode: String) {
+        startTime = System.currentTimeMillis()
         RetrofitCore.getInstance().scanPay(PayBody(orderNo, scanCode))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( {
-                    kCommiting?.dismiss()
+                    kProgressHUD?.dismiss()
                     if (it.code == HttpCode.OK) {
+                        queryPay()
+
+                    } else {
+                        Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                    }
+                }, {
+                    kProgressHUD?.dismiss()
+                    Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private val MaxDuration = 4 * 60 * 1000L
+
+    private var startTime = 0L
+
+    /**
+     * 查询是否支付成功
+     */
+    private fun queryPay() {
+        RetrofitCore.getInstance().getOrderById(QueryPayBody(orderNo))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( {
+                    kProgressHUD?.dismiss()
+                    if (it.code == HttpCode.OK && "01" == it.data?.paystate) {
                         // 保存数据到application中
                         AlertDialog.Builder(this@PayChannelActivity)
                                 .setTitle("支付成功")
@@ -102,14 +144,21 @@ class PayChannelActivity : SuperActivity(), ScanDecoder.ResultCallback {
                                 .show()
 
                     } else {
-                        Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                        if (System.currentTimeMillis() - startTime < MaxDuration) {
+                            queryPay()
+                        } else {
+                            Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }, {
-                    kCommiting?.dismiss()
-                    Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                    if (System.currentTimeMillis() - startTime < MaxDuration) {
+                        queryPay()
+                    } else {
+                        kProgressHUD?.dismiss()
+                        Toast.makeText(this@PayChannelActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                    }
                 })
     }
-
 
 
 
