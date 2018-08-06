@@ -330,8 +330,6 @@ class CheckActivity : AppCompatActivity() {
             vh.et_count.setText(allList[position].count.toString())
 
 
-
-
             vh.iv_add.setOnClickListener {
                 hideSoft(rv_goods)
                 allList[position].count += 1
